@@ -14,10 +14,10 @@ export default function Header({ onMenuClick }: HeaderProps) {
   };
 
   return (
-    <header className="bg-white border-b h-[57px] flex items-center">
+    <header className="bg-blue-600 text-white border-b h-[57px] flex items-center">
       <div className="flex items-center px-3 gap-4 w-[250px] border-r h-full">
-        <span className="font-bold text-xl text-[#17a2b8]">Admin</span>
-        <span className="font-bold text-xl text-gray-500">Panel</span>
+        <span className="font-bold text-xl text-[#7ab817]">Admin</span>
+        <span className="font-bold text-xl text-white">Panel</span>
       </div>
       <div className="flex-1 flex items-center justify-between px-4">
         <div className="flex items-center">
@@ -58,7 +58,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
               <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
                 <User className="w-5 h-5 text-gray-600" />
               </div>
-              <span className="text-sm text-gray-700">User</span>
+              <span className="text-sm text-white">User</span>
             </div>
             
             {isDropdownOpen && (

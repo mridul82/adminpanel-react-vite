@@ -11,6 +11,20 @@ const api = axios.create({
   withCredentials: false, // Set to false since we're using token-based auth, not cookie-based
 });
 
+// Helper functions to handle Laravel's _method requirement for PUT/PATCH/DELETE
+// These are separate functions rather than methods on the api object
+export const putWithMethod = (url: string, data: any = {}) => {
+  return api.post(url, { ...data, _method: 'PUT' });
+};
+
+export const patchWithMethod = (url: string, data: any = {}) => {
+  return api.post(url, { ...data, _method: 'PATCH' });
+};
+
+export const deleteWithMethod = (url: string, data: any = {}) => {
+  return api.post(url, { ...data, _method: 'DELETE' });
+};
+
 // Add a request interceptor to add the auth token to requests
 api.interceptors.request.use(
   (config) => {

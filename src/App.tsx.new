@@ -1,4 +1,5 @@
 import ProtectedRoute from '@/components/auth/ProtectedRoute'
+import PermissionGuard from '@/components/auth/PermissionGuard'
 import { AuthProvider } from '@/contexts/AuthContext'
 import MainLayout from '@/layouts/MainLayout'
 import Dashboard from '@/pages/Dashboard'
@@ -9,6 +10,7 @@ import ResetPassword from '@/pages/auth/ResetPassword'
 import UserDetail from '@/pages/users/UserDetail'
 import UserForm from '@/pages/users/UserForm'
 import UserList from '@/pages/users/UserList'
+import { USER_PERMISSIONS } from '@/types/permission'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 
 function App() {
@@ -30,35 +32,45 @@ function App() {
               </MainLayout>
             </ProtectedRoute>
           } />
+          
           {/* User Management Routes */}
           <Route path="/users" element={
             <ProtectedRoute>
               <MainLayout>
-                <UserList />
+                <PermissionGuard permission={USER_PERMISSIONS.LIST}>
+                  <UserList />
+                </PermissionGuard>
               </MainLayout>
             </ProtectedRoute>
           } />
           <Route path="/users/create" element={
             <ProtectedRoute>
               <MainLayout>
-                <UserForm />
+                <PermissionGuard permission={USER_PERMISSIONS.CREATE}>
+                  <UserForm />
+                </PermissionGuard>
               </MainLayout>
             </ProtectedRoute>
           } />
           <Route path="/users/:id" element={
             <ProtectedRoute>
               <MainLayout>
-                <UserDetail />
+                <PermissionGuard permission={USER_PERMISSIONS.VIEW}>
+                  <UserDetail />
+                </PermissionGuard>
               </MainLayout>
             </ProtectedRoute>
           } />
           <Route path="/users/:id/edit" element={
             <ProtectedRoute>
               <MainLayout>
-                <UserForm />
+                <PermissionGuard permission={USER_PERMISSIONS.EDIT}>
+                  <UserForm />
+                </PermissionGuard>
               </MainLayout>
             </ProtectedRoute>
           } />
+          
           <Route path="/products" element={
             <ProtectedRoute>
               <MainLayout>

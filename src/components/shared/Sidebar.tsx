@@ -1,19 +1,19 @@
-import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import { 
-  LayoutDashboard, 
-  Users, 
-  ShoppingCart, 
-  Settings, 
-  FileText,
-  BarChart3,
-  ChevronDown,
-  PieChart,
-  Table,
-  Calendar,
-  Mail,
-  Boxes
-} from 'lucide-react'
+import {
+    BarChart3,
+    Boxes,
+    Calendar,
+    ChevronDown,
+    FileText,
+    LayoutDashboard,
+    Mail,
+    PieChart,
+    Settings,
+    ShoppingCart,
+    Table,
+    Users
+} from 'lucide-react';
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 interface NavItem {
   name: string;
@@ -24,55 +24,57 @@ interface NavItem {
 }
 
 const navigation: NavItem[] = [
-  { 
-    name: 'Dashboard', 
+  {
+    name: 'Dashboard',
     icon: LayoutDashboard,
     children: [
       { name: 'Analytics', icon: PieChart, href: '/', badge: { text: '150+', color: 'bg-purple-500' } },
       { name: 'E-commerce', icon: ShoppingCart, href: '/ecommerce', badge: { text: 'New', color: 'bg-emerald-500' } }
     ]
   },
-  { 
-    name: 'Components', 
+  {
+    name: 'Components',
     icon: Boxes,
     children: [
       { name: 'Tables', icon: Table, href: '/tables', badge: { text: '10+', color: 'bg-pink-500' } },
       { name: 'Calendar', icon: Calendar, href: '/calendar', badge: { text: '5', color: 'bg-yellow-500' } }
     ]
   },
-  { 
-    name: 'Users', 
-    icon: Users, 
-    href: '/users',
-    badge: { text: 'New', color: 'bg-blue-500' }
+  {
+    name: 'Users',
+    icon: Users,
+    children: [
+      { name: 'All Users', icon: Users, href: '/users' },
+      { name: 'Add User', icon: Users, href: '/users/create', badge: { text: 'New', color: 'bg-blue-500' } }
+    ]
   },
-  { 
-    name: 'Products', 
-    icon: ShoppingCart, 
+  {
+    name: 'Products',
+    icon: ShoppingCart,
     href: '/products',
     badge: { text: '150', color: 'bg-indigo-500' }
   },
-  { 
-    name: 'Reports', 
-    icon: BarChart3, 
+  {
+    name: 'Reports',
+    icon: BarChart3,
     href: '/reports',
     badge: { text: '3', color: 'bg-orange-500' }
   },
-  { 
-    name: 'Documents', 
-    icon: FileText, 
-    href: '/documents' 
+  {
+    name: 'Documents',
+    icon: FileText,
+    href: '/documents'
   },
-  { 
-    name: 'Mail', 
-    icon: Mail, 
+  {
+    name: 'Mail',
+    icon: Mail,
     href: '/mail',
     badge: { text: '12', color: 'bg-green-500' }
   },
-  { 
-    name: 'Settings', 
-    icon: Settings, 
-    href: '/settings' 
+  {
+    name: 'Settings',
+    icon: Settings,
+    href: '/settings'
   },
 ]
 
@@ -80,8 +82,8 @@ export default function Sidebar() {
   const [openMenus, setOpenMenus] = useState<string[]>([])
 
   const toggleMenu = (name: string) => {
-    setOpenMenus(prev => 
-      prev.includes(name) 
+    setOpenMenus(prev =>
+      prev.includes(name)
         ? prev.filter(item => item !== name)
         : [...prev, name]
     )
@@ -112,8 +114,8 @@ export default function Sidebar() {
                   to={child.href || '#'}
                   className={({ isActive }) => `
                     flex items-center px-3 py-2 text-sm rounded-lg
-                    ${isActive 
-                      ? 'bg-[#17a2b8]/10 text-[#17a2b8]' 
+                    ${isActive
+                      ? 'bg-[#17a2b8]/10 text-[#17a2b8]'
                       : 'text-gray-700 hover:bg-gray-100'
                     }
                   `}
@@ -139,8 +141,8 @@ export default function Sidebar() {
         to={item.href || '#'}
         className={({ isActive }) => `
           flex items-center justify-between px-3 py-2 rounded-lg
-          ${isActive 
-            ? 'bg-[#17a2b8]/10 text-[#17a2b8]' 
+          ${isActive
+            ? 'bg-[#17a2b8]/10 text-[#17a2b8]'
             : 'text-gray-700 hover:bg-gray-100'
           }
         `}

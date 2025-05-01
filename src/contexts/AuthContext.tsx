@@ -1,4 +1,5 @@
 import authService, { User } from '@/services/authService';
+import { hasPermission as checkPermission } from '@/types/permission';
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 
 // Define the AuthContext type
@@ -6,6 +7,7 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+  hasPermission: (permission: string) => boolean;
   login: (email: string, password: string) => Promise<boolean>;
   register: (name: string, email: string, password: string, passwordConfirmation: string) => Promise<boolean>;
   logout: () => Promise<void>;
@@ -248,11 +250,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   };
 
+  // Check if user has a specific permission
+  const hasPermission = (permission: string): boolean => {
+    return checkPermission(user?.permissions, permission);
+  };
+
   // Create the context value
   const value = {
     user,
     isAuthenticated: !!user,
     isLoading,
+    hasPermission,
     login,
     register,
     logout,

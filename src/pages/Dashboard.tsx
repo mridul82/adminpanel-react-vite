@@ -1,15 +1,66 @@
-import { 
-  Users, 
-  ShoppingCart, 
-  Percent,
-  ArrowUpRight,
+import { useAuth } from '@/contexts/AuthContext';
+import {
+  Activity,
   ArrowDownRight,
-  Activity
-} from 'lucide-react'
+  ArrowUpRight,
+  Percent,
+  ShoppingCart,
+  Users
+} from 'lucide-react';
+
+import { useEffect } from 'react';
 
 export default function Dashboard() {
+  const { user, isAuthenticated, isLoading } = useAuth();
+
+  // Log user information for debugging
+  console.log('Dashboard - User:', user);
+  console.log('Dashboard - isAuthenticated:', isAuthenticated);
+
+  // Fetch latest user data when component mounts
+  useEffect(() => {
+    console.log('Dashboard component mounted');
+    // You can add additional logic here if needed
+  }, []);
   return (
     <div className="space-y-6">
+      {/* Welcome Section */}
+      {isLoading ? (
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+          <div className="flex items-center justify-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            <span className="ml-2">Loading user information...</span>
+          </div>
+        </div>
+      ) : user ? (
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg shadow-sm p-6 mb-6 border border-blue-100">
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 shadow-md">
+              <Users className="w-8 h-8" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-800">Welcome, {user.name}!</h2>
+              <p className="text-gray-600">{user.email}</p>
+              <p className="text-sm text-gray-500 mt-1">
+                {user.role === 'admin' ? 'Administrator' : 'User'} • Last login: {new Date().toLocaleDateString()}
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="bg-yellow-50 rounded-lg shadow-sm p-6 mb-6 border border-yellow-100">
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600">
+              <Users className="w-8 h-8" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-gray-800">Welcome to the Dashboard</h2>
+              <p className="text-gray-600">You are not logged in. Please log in to see your information.</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Small Boxes */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-md shadow-sm overflow-hidden">

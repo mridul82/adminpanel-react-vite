@@ -1,0 +1,39 @@
+/* Button text visibility fix */
+button.auth-button {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+button.auth-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.2));
+  z-index: -1;
+}
+
+button.auth-button span {
+  position: relative;
+  z-index: 2;
+}
+
+/* Ensure text is visible with high contrast */
+.auth-button-text {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Add a subtle text shadow for better visibility */
+.auth-button-text span {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Ensure icon is visible */
+.auth-button-icon {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3)) !important;
+}
